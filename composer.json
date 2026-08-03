@@ -21,7 +21,7 @@
     "require": {
         "php" : "^8.0",
         "ext-json": "*",
-        "lumnd/platophp": "v0.1.0",
+        "lumnd/platophp": "~0.1",
         "workerman/workerman": "^4.1 || ^5.0"
     },
     "suggest": {
@@ -49,7 +49,7 @@
     },
     "repositories": [
         {
-            "comment": "The framework is not on Packagist yet, so it is resolved from its own repository at the tag this adapter is released against. Composer only reads the repositories of the root package, so an application installing this adapter never sees it. This entry goes away once lumnd/platophp is on Packagist.",
+            "comment": "The framework is not on Packagist yet, so it is resolved from its own repository, whose tags carry the versions this constraint is matched against. Composer only reads the repositories of the root package, so an application installing this adapter never sees it. This entry goes away once lumnd/platophp is on Packagist.",
             "type": "vcs",
             "url": "https://github.com/lumnd/platophp.git"
         }
