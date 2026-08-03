@@ -1,0 +1,73 @@
+{
+    "name" : "lumnd/plato-workerman",
+    "description" : "Workerman server adapter for PlatoPHP: the event loop, protocol and worker processes behind plato\\server\\driver",
+    "type" : "library",
+    "keywords": [
+        "platophp",
+        "workerman",
+        "websocket",
+        "tcp",
+        "server",
+        "adapter"
+    ],
+    "homepage": "https://platophp.com",
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name" : "lumnd-platophp",
+            "email" : "github@lumnd.com"
+        }
+    ],
+    "require": {
+        "php" : "^8.0",
+        "ext-json": "*",
+        "lumnd/platophp": "v0.1.0",
+        "workerman/workerman": "^4.1 || ^5.0"
+    },
+    "suggest": {
+        "ext-event": "libevent based event loop. Without it Workerman falls back to select(), which is fine below a thousand connections per worker and a bottleneck above it",
+        "ext-pcntl": "Required by Workerman for the master process, worker forking and signal handling",
+        "ext-posix": "Required by Workerman to drop privileges and to check whether a master process is alive"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.2",
+        "pestphp/pest": "^3.7 || ^4.7",
+        "squizlabs/php_codesniffer": "^3.11"
+    },
+    "autoload": {
+        "psr-4": {
+            "plato\\workerman\\": "src"
+        },
+        "files": [
+            "bootstrap.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
+    },
+    "repositories": [
+        {
+            "comment": "The framework is not on Packagist yet, so it is resolved from its own repository at the tag this adapter is released against. Composer only reads the repositories of the root package, so an application installing this adapter never sees it. This entry goes away once lumnd/platophp is on Packagist.",
+            "type": "vcs",
+            "url": "https://github.com/lumnd/platophp.git"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "platform": {
+            "php": "8.2"
+        }
+    },
+    "scripts": {
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "style": "phpcs",
+        "style:fix": "phpcbf",
+        "test": "pest --colors=always",
+        "test:unit": "pest --testsuite=Unit --colors=always",
+        "test:feature": "pest --testsuite=Feature --colors=always"
+    }
+}

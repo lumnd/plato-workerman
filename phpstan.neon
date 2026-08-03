@@ -1,0 +1,26 @@
+# Level 5 over src/ and bootstrap.php, with no baseline: every error phpstan reports here fails the
+# build.
+#
+# The analysis runs against whichever Workerman the constraint resolved, and the two majors declare
+# the same things differently -- `public $protocol` in 4 against `public ?string $protocol` in 5, and
+# a websocket callback that is a dynamic property in 4 (its ConnectionInterface carries
+# #[AllowDynamicProperties]) and a declared one in 5. Code that reads a Workerman property therefore
+# casts rather than assumes, which is also what makes it run on both.
+#
+# Unmatched ignores are not reported for the same reason: an ignore that is needed on one major is
+# unmatched on the other, and there is only one configuration file.
+
+parameters:
+    level: 5
+    paths:
+        - src
+        - bootstrap.php
+    # A null check that is required against Workerman 5's declared types is "always true" against
+    # Workerman 4's phpdoc, and the check has to stay. Only phpdoc is treated as uncertain here;
+    # native types are still enforced.
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Workerman 4 only. The callback is the documented way to see a websocket handshake, and it
+        # is assigned per connection because the handshake is where a client is authenticated
+        - '#Access to an undefined property Workerman\\Connection\\TcpConnection::\$onWebSocketConnect#'

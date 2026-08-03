@@ -1,0 +1,32 @@
+# Local collaboration files; exclude them when rebuilding a release branch.
+CLAUDE.md
+AGENTS.md
+TODO.md
+.claude/
+
+# Library dependencies: do not commit vendor or a lock file.
+vendor/
+composer.lock
+
+# Runtime output. Tests write to isolated system temp paths, never into the tree.
+/data/
+/log/
+*.log
+*.pid
+*.status
+
+# Editors and operating systems.
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.swo
+
+# Local secrets and certificates.
+.env
+cert/
+certs/
+*.pem
+*.key
+*.crt
+*.cer
