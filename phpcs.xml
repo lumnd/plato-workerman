@@ -1,45 +1,30 @@
 <?xml version="1.0"?>
 <ruleset name="plato-workerman">
     <description>
-        The standard of lumnd/platophp, unchanged: PSR-12 minus the naming and brace conventions the
-        framework deliberately does not follow. An adapter that read differently from the package it
-        adapts would be the odd file in every diff.
+        The standard itself lives in lumnd/plato-coding-standard, which the framework and every
+        package built on it share. An adapter that read differently from the package it adapts
+        would be the odd file in every diff.
+
+        The rules used to be pasted in here, and a pasted copy drifts -- this one was already
+        missing Squiz.Functions.MultiLineFunctionDeclaration.NewlineBeforeOpenBrace against the
+        framework's, so a wrapped signature that passes there errored here, and it carried neither
+        ProjectConventionsSniff nor the Allman check for closures, so the snake_case and brace
+        conventions were merely allowed rather than enforced. The package is the one copy.
+
+        What stays below is what is genuinely this repository's own: which files to check.
     </description>
 
     <file>src</file>
     <file>bootstrap.php</file>
-    <arg name="extensions" value="php"/>
-    <arg name="colors"/>
-    <arg value="sp"/>
 
-    <!-- Zero errors is the merge condition; the 120 column soft limit stays a warning. -->
-    <config name="ignore_warnings_on_exit" value="1"/>
+    <!--
+        Resolved by name, not by path: lumnd/plato-coding-standard declares itself a
+        phpcodesniffer-standard, and dealerdirect/phpcodesniffer-composer-installer writes it into
+        phpcs's installed_paths on install. That plugin has to be allowed in composer.json's
+        config.allow-plugins or the name does not resolve and phpcs reports no sniffs registered.
 
-    <rule ref="PSR12">
-        <!-- Class names are snake_case lowercase (plato\workerman\driver), not StudlyCaps. -->
-        <exclude name="Squiz.Classes.ValidClassName"/>
-
-        <!-- Method names are snake_case (close_frame, worker_start), not camelCase. -->
-        <exclude name="PSR1.Methods.CamelCapsMethodName"/>
-
-        <!-- Private and protected members carry a leading underscore ($_config, _resolve()). -->
-        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
-        <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
-
-        <!-- Braces go on their own line everywhere (Allman). -->
-        <exclude name="Squiz.ControlStructures.ControlSignature"/>
-        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnNewLine"/>
-
-        <!-- A space just inside the parentheses of a control structure: `if ( $expr )`. -->
-        <exclude name="PSR12.ControlStructures.ControlStructureSpacing"/>
-        <exclude name="Squiz.ControlStructures.ForEachLoopDeclaration"/>
-        <exclude name="Squiz.ControlStructures.ForLoopDeclaration"/>
-    </rule>
-
-    <rule ref="Generic.Files.LineLength">
-        <properties>
-            <property name="lineLimit" value="120"/>
-            <property name="absoluteLineLimit" value="0"/>
-        </properties>
-    </rule>
+        The standard brings its own extensions, colours, report format and the setting that keeps
+        the 120 column limit a warning rather than an error, so none of that is repeated here.
+    -->
+    <rule ref="PlatoPHP"/>
 </ruleset>
