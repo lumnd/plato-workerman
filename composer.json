@@ -1,14 +1,18 @@
 {
     "name" : "lumnd/plato-workerman",
-    "description" : "Workerman server adapter for PlatoPHP: the event loop, protocol and worker processes behind plato\\server\\driver",
+    "description" : "Workerman adapter for PlatoPHP WebSocket and TCP servers, worker processes and protocol handling",
     "type" : "library",
     "keywords": [
         "platophp",
         "workerman",
         "websocket",
+        "websocket-server",
         "tcp",
+        "tcp-server",
         "server",
-        "adapter"
+        "adapter",
+        "event-loop",
+        "realtime"
     ],
     "homepage": "https://platophp.com",
     "license" : "MIT",

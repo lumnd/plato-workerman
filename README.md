@@ -1,9 +1,31 @@
 # lumnd/plato-workerman
 
-The Workerman driver behind `plato\server\driver`: the event loop, the protocol and the worker
-processes [PlatoPHP](https://platophp.com) deliberately does not ship.
+Workerman adapter for [PlatoPHP](https://platophp.com) WebSocket and TCP servers. It supplies the
+event loop, protocol handling, worker processes, heartbeat checks, CLI commands, and connection
+lifecycle around PlatoPHP's protocol-neutral `plato\server\driver` contract.
 
 [简体中文](README.zh-CN.md)
+
+Use it when a PlatoPHP application needs:
+
+- WebSocket services for chat, realtime dashboards, device links, push channels, or game/session
+  coordination
+- TCP, line, length-prefixed frame, or custom Workerman protocol listeners
+- Multi-process resident workers controlled through `php vendor/bin/plato server:*` commands
+- Connection-scoped authentication established once at open and reused for later messages
+- A clear boundary between socket transport concerns and normal controller dispatch
+
+Install it in an existing PlatoPHP application:
+
+```bash
+composer require lumnd/plato-workerman
+```
+
+Then register the commands and start the default WebSocket listener:
+
+```bash
+php vendor/bin/plato server:start
+```
 
 `lumnd/platophp` owns what happens between an inbound message and a controller — one whole message,
 one `ct` / `ac` dispatch, clean request state, an identity that was established once and belongs to
@@ -21,20 +43,10 @@ nothing above `plato\server\driver` knows it is here.
 | Extensions | `pcntl` and `posix`, which Workerman needs for the master process |
 | Suggested | `ext-event`, for a loop that scales past a thousand connections per worker |
 
-## Install
-
-```bash
-composer require lumnd/plato-workerman
-```
+## Default driver
 
 The shipped `config/server.php` already names `workerman` as its driver, so a default installation
-starts:
-
-```bash
-php vendor/bin/plato server:start
-```
-
-after the one line that registers the commands, below.
+starts after the one line that registers the commands, below.
 
 ## Configure
 
