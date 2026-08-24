@@ -707,6 +707,10 @@ class driver implements contract
      * authenticates on have not arrived yet, so the connection is opened from the handshake callback
      * instead. On every other protocol there is nothing else coming and it is opened here.
      *
+     * Refusing from that callback only works because Workerman fires it before it writes the 101:
+     * up to 4.1.4 the response went out first and a refused client was upgraded anyway, which is
+     * why composer.json floors Workerman 4 at 4.1.5.
+     *
      * @param TcpConnection $socket
      *
      * @return void

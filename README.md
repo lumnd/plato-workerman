@@ -39,7 +39,7 @@ nothing above `plato\server\driver` knows it is here.
 | | |
 | --- | --- |
 | PHP | 8.0+ |
-| Workerman | `^4.1 \|\| ^5.0` — both majors, one code path |
+| Workerman | `^4.1.5 \|\| ^5.0` — both majors, one code path |
 | Extensions | `pcntl` and `posix`, which Workerman needs for the master process |
 | Suggested | `ext-event`, for a loop that scales past a thousand connections per worker |
 

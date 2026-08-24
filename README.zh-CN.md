@@ -15,7 +15,7 @@
 | | |
 | --- | --- |
 | PHP | 8.0+ |
-| Workerman | `^4.1 \|\| ^5.0`，两个大版本共用一套代码 |
+| Workerman | `^4.1.5 \|\| ^5.0`，两个大版本共用一套代码 |
 | 扩展 | `pcntl` 与 `posix`，Workerman 的 master 进程需要 |
 | 建议 | `ext-event`，单 worker 连接数上千后才有意义 |
 
